@@ -1,7 +1,6 @@
 from pyquery import PyQuery as pq
 import requests
 import os
-import os.path
 import time
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -28,7 +27,7 @@ def get_imginfo(url):
     for title in d('.movie-box .photo-info date:eq(0)'):
         title_list.append(d(title).text())
     return [[img_url[pos], title_list[pos]] for pos in range(len(img_url))]
-    
+
 def write_img(writelist):
     for url,title in writelist:
         with open(r'./' + keyword + '/' + title + '.jpg','wb') as f:
@@ -37,7 +36,7 @@ def write_img(writelist):
 
 def main():
     starttime = time.time()
-    # keyword=9oz  e.g "https://avmo.pw/cn/star/9oz" 
+    # keyword=9oz  e.g "https://avmo.pw/cn/star/9oz"
     global keyword
     keyword = '9qp'
     if not os.path.exists(keyword):
