@@ -4,6 +4,7 @@ import os
 import time
 from multiprocessing.dummy import Pool as ThreadPool
 
+# https://avmo.pw 多线程版本
 def get_urls():
     pagenum = 1
     urls = []

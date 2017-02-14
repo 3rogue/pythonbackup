@@ -3,6 +3,7 @@ import requests
 from pyquery import PyQuery as pq
 import xlwings as xw
 
+# 导出我的豆瓣电影列表
 userid = '38278418'
 url = 'https://movie.douban.com/people/{}/collect'.format(userid)
 

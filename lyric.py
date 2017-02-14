@@ -4,6 +4,7 @@ import os
 import re
 # 163 api https://github.com/yanunon/NeteaseCloudMusic/wiki/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90API%E5%88%86%E6%9E%90
 
+# 拖曳单个文件从网易下载歌词
 def downloadlyric(songname):
     songname = re.search(r'.*\\(.*).mp3',songname)
     songname = songname.group(1)

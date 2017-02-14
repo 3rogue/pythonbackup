@@ -1,9 +1,9 @@
 from pyquery import PyQuery as pq
 import requests
 import os
-import os.path
 import time
 
+# 下载 https://avmo.pw 某位优优的所有封面,单线程版本
 def downloadpic(keyword):
     if not os.path.exists(keyword):
         os.makedirs(keyword)
