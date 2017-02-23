@@ -27,7 +27,9 @@ def downloadlyric(songname):
     songdetail = searchbox[int(id)]
     id = songdetail['id']
     r = requests.get('http://music.163.com/api/song/lyric?lv=-1&tv=-1&id={}'.format(id))
-
+    if not r.json()['sgc']:
+        print('无歌词，sorry......')
+        return
     lyric = r.json()['lrc']['lyric']
     if r.json()['tlyric']['version']:
         lyric += r.json()['tlyric']['lyric']
