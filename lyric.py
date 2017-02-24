@@ -14,19 +14,24 @@ def downloadlyric(songname):
 
     searchbox = []
     if r.status_code == requests.codes.ok:
+        if not r.json()['result']['songCount']:
+            print('{} 曲库里找不到'.format(songname))
+            return
         for i in r.json()['result']['songs']:
             item = {'id':i['id'], 'name':i['name'], 'artistname':i['artists'][0]['name'], 'albumname':i['album']['name'], 'time':'{}:{}'.format(i['duration']//1000//60, i['duration']//1000%60)}
             searchbox.append(item)
+    else:
+        print('访问不到api地址......')
     if searchbox[0]['artistname'] + ' - ' + searchbox[0]['name'] == songname and searchbox[1]['artistname'] + ' - ' + searchbox[1]['name'] != songname:
         id = 0
-        print('完全匹配到了，静默下载...')
+        print('完全匹配到了，静默下载......')
     else:
         for i,detail in enumerate(searchbox):
             print('{}: {}{}{}\t{}\n'.format(i, detail['name'], detail['artistname'].center(20), detail['albumname'], detail['time']))
         id = input('在0-9选择要下载的序号：')
     songdetail = searchbox[int(id)]
-    id = songdetail['id']
-    r = requests.get('http://music.163.com/api/song/lyric?lv=-1&tv=-1&id={}'.format(id))
+    lyric_id = songdetail['id']
+    r = requests.get('http://music.163.com/api/song/lyric?lv=-1&tv=-1&id={}'.format(lyric_id))
     if not r.json()['sgc']:
         print('无歌词，sorry......')
         return
@@ -36,7 +41,7 @@ def downloadlyric(songname):
 
     with open(os.path.join(r'F:\CloudMusic\Lrc', songname+'.lrc'), 'w', encoding='utf-8') as f:
         f.write(lyric)
-        print('All down.............')
+        print('All down......')
 
 def main():
     while True:
