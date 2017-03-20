@@ -22,9 +22,8 @@ def downloadlyric(songname):
             searchbox.append(item)
     else:
         print('访问不到api地址......')
-    if searchbox[0]['artistname'] + ' - ' + searchbox[0]['name'] == songname and searchbox[1]['artistname'] + ' - ' + searchbox[1]['name'] != songname:
+    if len(searchbox)==1 or (searchbox[0]['artistname'] + ' - ' + searchbox[0]['name'] == songname and searchbox[1]['artistname'] + ' - ' + searchbox[1]['name'] != songname):
         id = 0
-        print('完全匹配到了，静默下载......')
     else:
         for i,detail in enumerate(searchbox):
             print('{}: {}{}{}\t{}\n'.format(i, detail['name'], detail['artistname'].center(20), detail['albumname'], detail['time']))
@@ -32,7 +31,7 @@ def downloadlyric(songname):
     songdetail = searchbox[int(id)]
     lyric_id = songdetail['id']
     r = requests.get('http://music.163.com/api/song/lyric?lv=-1&tv=-1&id={}'.format(lyric_id))
-    if 'nolyric' in r.json():
+    if 'nolyric' in r.json() or 'uncollected' in r.json():
         print('无歌词，sorry......')
         return
     lyric = r.json()['lrc']['lyric']
