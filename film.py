@@ -28,7 +28,7 @@ with open(r'F:\pythonwork\film.txt','r+',encoding = 'utf-8') as f:
     smtp_server = 'smtp.126.com' #smtp服务器地址
     
     msg = MIMEText(link,'plain','utf-8')
-    subject = first
+
     msg['From'] = Header('<{}>'.format(from_addr))
     msg['To'] = Header('<{}>'.format(to_addr))
     msg['Subject'] = Header('今天'+first, 'utf-8')
